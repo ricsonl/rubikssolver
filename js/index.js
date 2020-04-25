@@ -1,5 +1,6 @@
 const dim = 3;
-var len = 50;
+const len = 50;
+const offset = (dim-1)*len*0.5;
 
 var cube = [];
 
@@ -12,7 +13,7 @@ function setup() {
             cube[i][j] = [];
 
             for(let k=0; k < dim; k++){
-                cube[i][j][k] = new Box(i*len, j*len, k*len, len);
+                cube[i][j][k] = new Box(i*len-offset, j*len-offset, k*len-offset, len);
             }
         }
     }
@@ -21,6 +22,10 @@ function setup() {
 function draw() {
     clear();
     background('#333');
+    rotX = map(mouseY, height, 0, -3, 3);
+    rotY = map(mouseX, width, 0, 3, -3);
+    rotateX(rotX);
+    rotateY(rotY);
     for (let i = 0; i < dim; i++) {
         for (let j = 0; j < dim; j++) {
             for (let k = 0; k < dim; k++) {

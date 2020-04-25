@@ -2,7 +2,7 @@ class Box {
     pos = undefined;
     len = undefined;
     constructor(x, y, z, len){
-        this.pos = {x: x, y: y, z: z};
+        this.pos = createVector(x, y, z);
         this.len = len;
     }
 
