@@ -1,0 +1,2 @@
+# rubikssolver
+js rubiks solver
