@@ -1,20 +1,29 @@
 class Cubie {
     matrix = undefined;
-    highlight = undefined;
+    x = undefined;
+    y = undefined;
+    z = undefined;
+    c = undefined;
 
-    constructor(m){
+    constructor(m, x, y, z){
         this.matrix = m;
-        this.highlight = false;
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.c = '#fff';
+    }
+
+    update(x, y, z){
+        this.matrix = Rematrix.translate3d(x, y, z);
+        this.x = x;
+        this.y = y;
+        this.z = z;
     }
 
     show(){
-        fill(255);
-        if(this.highlight){
-            fill(255, 0, 0);
-        }
+        fill(this.c);
         stroke(0);
         strokeWeight(5);
-
         push();
         applyMatrix(...this.matrix);
         box(1);
