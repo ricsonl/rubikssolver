@@ -9,6 +9,11 @@ const colors = {
     frt: '#ffffff', bck: '#fff000'
 };
 
+const allMoves = ["f", "b", "u", "d", "l", "r"];
+var sequence = "";
+var counter = 0;
+var started = false;
+
 function turn(axis, index, dir){
     for (let i = 0; i < cube.length; i++) {
         if (axis == 'x' && cube[i].x == index) {
@@ -36,7 +41,14 @@ function turn(axis, index, dir){
 }
 
 function keyPressed(){
-    switch(key){
+    if(key == ' '){
+        started = true;
+    }
+    applyMove(key);
+}
+
+function applyMove(move){
+    switch(move){
         case 'f':
             turn('z', 1, 1);
             break;
@@ -88,14 +100,44 @@ function setup() {
             }
         }
     }
-    cube[0].c = '#ff0000';
-    cube[2].c = '#0000ff';
+    for(let i=0; i<50; i++){
+        let r = floor(random(allMoves.length));
+        if(random(1) < 0.5){
+            sequence += allMoves[r];
+        } else {
+            sequence += allMoves[r].toUpperCase();
+        }
+    }
+    for (let i = sequence.length-1; i >=0; i--) {
+        sequence += flipCase(sequence.charAt(i));
+    }
+    console.log(sequence)
+}
+
+function flipCase(c){
+    var s = String(c);
+    if(s === s.toLowerCase()){
+        return s.toUpperCase();
+    } else {
+        return s.toLowerCase();
+    }
 }
 
 function draw() {
     clear();
     background('#333');
     scale(50);
+
+    if(started){
+        if(frameCount % 5 == 0){
+            if (counter < sequence.length) {
+                var move = sequence.charAt(counter);
+                applyMove(move);
+                counter++;
+            }
+        }
+    }
+    
     rotX = map(mouseY, height, 0, -3.2, 3.2);
     rotY = map(mouseX, width, 0, 3.2, -3.2);
     rotateX(rotX);
