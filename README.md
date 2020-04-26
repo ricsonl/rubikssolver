@@ -1,2 +1,2 @@
 # rubikssolver
-js rubiks solver
+rubiks solver
