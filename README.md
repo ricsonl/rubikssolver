@@ -1,5 +1,5 @@
 # JavaScript Rubik's cube simulator
-Check out the <a href="youtube.com/watch?v=9PGfL4t-uqE">CodingTrain's video</a> building a Processing version
+Check out the <a href="https://youtube.com/watch?v=9PGfL4t-uqE">CodingTrain's video</a> building a Processing version
 
 # Python solver for Rubik's cube
 Coming soon
