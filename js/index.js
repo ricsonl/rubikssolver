@@ -5,52 +5,73 @@ var cube = [];
 
 const colors = {
     upp: '#009b00', dwn: '#0046ad',
-    lft: '#e32000', rgt: '#ff5a00',
-    frt: '#ffffff', bck: '#ffd300'
+    lft: '#e02000', rgt: '#d56000',
+    frt: '#ffffff', bck: '#fff000'
 };
 
-function turn(axis, index){
+function turn(axis, index, dir){
     for (let i = 0; i < cube.length; i++) {
         if (axis == 'x' && cube[i].x == index) {
-            let m1 = Rematrix.rotate(90);
+            let m1 = Rematrix.rotate(dir*90);
             let m2 = Rematrix.translate(cube[i].y, cube[i].z);
             let mt = Rematrix.multiply(m1, m2);
             cube[i].update(cube[i].x, round(mt[3 * 4 + 0]), round(mt[3 * 4 + 1]));
+            cube[i].turnFacesX(dir);
         }
         if (axis == 'y' && cube[i].y == index) {
-            let m1 = Rematrix.rotate(90);
+            let m1 = Rematrix.rotate(dir*90);
             let m2 = Rematrix.translate(cube[i].x, cube[i].z);
             let mt = Rematrix.multiply(m1, m2);
             cube[i].update(round(mt[3 * 4 + 0]), cube[i].y, round(mt[3 * 4 + 1]));
+            cube[i].turnFacesY(dir);
         }
         if (axis == 'z' && cube[i].z == index) {
-            let m1 = Rematrix.rotate(90);
+            let m1 = Rematrix.rotate(dir*90);
             let m2 = Rematrix.translate(cube[i].x, cube[i].y);
             let mt = Rematrix.multiply(m1, m2);
             cube[i].update(round(mt[3 * 4 + 0]), round(mt[3 * 4 + 1]), cube[i].z);
+            cube[i].turnFacesZ(dir);
         }
     }
 }
 
 function keyPressed(){
     switch(key){
-        case '1':
-            turn('x', -1);
+        case 'f':
+            turn('z', 1, 1);
             break;
-        case '2':
-            turn('x', 1);
+        case 'F':
+            turn('z', 1, -1);
             break;
-        case '3':
-            turn('y', -1);
+        case 'b':
+            turn('z', -1, -1);
             break;
-        case '4':
-            turn('y', 1);
+        case 'B':
+            turn('z', -1, 1);
             break;
-        case '5':
-            turn('z', -1);
+        case 'd':
+            turn('y', 1, -1);
             break;
-        case '6':
-            turn('z', 1);
+        case 'D':
+            turn('y', 1, 1);
+            break;
+        case 'u':
+            turn('y', -1, 1);
+            break;
+        case 'U':
+            turn('y', -1, -1);
+            break;
+        case 'l':
+            turn('x', -1, -1);
+            break;
+        case 'L':
+            turn('x', -1, 1);
+            break;
+        case 'r':
+            turn('x', 1, 1);
+            break;
+        case 'R':
+            turn('x', 1, -1);
             break;
     }
 }
