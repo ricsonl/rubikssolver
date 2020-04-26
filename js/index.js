@@ -1,13 +1,6 @@
 const WIDTH = 500;
 const HEIGHT = 500;
 
-const dim = 3;
-const len = 50;
-
-var sequence = "";
-var counter = 0;
-var started = false;
-
 var rot = false;
 var rotX = 0;
 var rotY = 0;
@@ -19,10 +12,6 @@ var clickedY = undefined;
 function setup() {
     createCanvas(WIDTH, HEIGHT, WEBGL);
     cube = new Cube();
-}
-
-function keyPressed() {
-    cube.applyMove(key);
 }
 
 function draw() {
@@ -51,4 +40,8 @@ function mouseReleased() {
     actualX = actualX + mouseX - clickedX;
     actualY = actualY + mouseY - clickedY;
     rot = false;
+}
+
+function keyPressed() {
+    cube.queue.push(key);
 }
