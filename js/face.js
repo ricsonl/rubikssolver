@@ -36,7 +36,7 @@ class Face{
         translate(0.5*this.normal.x, 0.5*this.normal.y, 0.5*this.normal.z);
         if (abs(this.normal.x) > 0) rotateY(HALF_PI);
         else if (abs(this.normal.y) > 0) rotateX(HALF_PI);
-        square(0, 0, 1);
+        square(0, 0, 0.9);
         pop();
     }
 }

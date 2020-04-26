@@ -19,12 +19,20 @@ class Cubie {
         };
 
         this.faces = [];
-        this.faces[0] = new Face(createVector(0, 0, -1), this.colors.bck);
-        this.faces[1] = new Face(createVector(0, 0, 1), this.colors.frt);
-        this.faces[2] = new Face(createVector(0, 1, 0), this.colors.dwn);
-        this.faces[3] = new Face(createVector(0, -1, 0), this.colors.upp);
-        this.faces[4] = new Face(createVector(1, 0, 0), this.colors.rgt);
-        this.faces[5] = new Face(createVector(-1, 0, 0), this.colors.lft);
+
+        this.faces[0] = new Face(createVector(0, 0, -1), '#000000');
+        this.faces[1] = new Face(createVector(0, 0, 1), '#000000');
+        this.faces[2] = new Face(createVector(0, 1, 0), '#000000');
+        this.faces[3] = new Face(createVector(0, -1, 0), '#000000');
+        this.faces[4] = new Face(createVector(1, 0, 0), '#000000');
+        this.faces[5] = new Face(createVector(-1, 0, 0), '#000000');
+
+        if(this.z == -1) this.faces[0] = new Face(createVector(0, 0, -1), this.colors.bck);
+        if(this.z == 1)  this.faces[1] = new Face(createVector(0, 0, 1), this.colors.frt);
+        if(this.y == 1)  this.faces[2] = new Face(createVector(0, 1, 0), this.colors.dwn);
+        if(this.y == -1) this.faces[3] = new Face(createVector(0, -1, 0), this.colors.upp);
+        if(this.x == 1)  this.faces[4] = new Face(createVector(1, 0, 0), this.colors.rgt);
+        if(this.x == -1) this.faces[5] = new Face(createVector(-1, 0, 0), this.colors.lft);
     }
 
     turnFacesX(dir){
