@@ -3,6 +3,7 @@ class Cubie {
     x = undefined;
     y = undefined;
     z = undefined;
+    colors = undefined;
     faces = undefined;
 
     constructor(m, x, y, z){
@@ -10,13 +11,20 @@ class Cubie {
         this.x = x;
         this.y = y;
         this.z = z;
+
+        this.colors = {
+            upp: '#009b00', dwn: '#0046ad',
+            lft: '#e02000', rgt: '#d55000',
+            frt: '#ffffff', bck: '#fff000'
+        };
+
         this.faces = [];
-        this.faces[0] = new Face(createVector(0, 0, -1), colors.bck);
-        this.faces[1] = new Face(createVector(0, 0, 1), colors.frt);
-        this.faces[2] = new Face(createVector(0, 1, 0), colors.dwn);
-        this.faces[3] = new Face(createVector(0, -1, 0), colors.upp);
-        this.faces[4] = new Face(createVector(1, 0, 0), colors.rgt);
-        this.faces[5] = new Face(createVector(-1, 0, 0), colors.lft);
+        this.faces[0] = new Face(createVector(0, 0, -1), this.colors.bck);
+        this.faces[1] = new Face(createVector(0, 0, 1), this.colors.frt);
+        this.faces[2] = new Face(createVector(0, 1, 0), this.colors.dwn);
+        this.faces[3] = new Face(createVector(0, -1, 0), this.colors.upp);
+        this.faces[4] = new Face(createVector(1, 0, 0), this.colors.rgt);
+        this.faces[5] = new Face(createVector(-1, 0, 0), this.colors.lft);
     }
 
     turnFacesX(dir){
