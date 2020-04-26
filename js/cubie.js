@@ -45,7 +45,7 @@ class Cubie {
     show(){
         noFill();
         stroke(0);
-        strokeWeight(5);
+        strokeWeight(7);
         push();
         applyMatrix(...this.matrix);
         box(1);

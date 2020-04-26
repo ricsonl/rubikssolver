@@ -1,3 +1,6 @@
+const WIDTH = 500;
+const HEIGHT = 500;
+
 const dim = 3;
 const len = 50;
 
@@ -5,7 +8,7 @@ var cube = [];
 
 const colors = {
     upp: '#009b00', dwn: '#0046ad',
-    lft: '#e02000', rgt: '#d56000',
+    lft: '#e02000', rgt: '#d55000',
     frt: '#ffffff', bck: '#fff000'
 };
 
@@ -13,6 +16,14 @@ const allMoves = ["f", "b", "u", "d", "l", "r"];
 var sequence = "";
 var counter = 0;
 var started = false;
+
+var rot = false;
+var rotX = 0;
+var rotY = 0;
+var actualX = WIDTH*0.5;
+var actualY = HEIGHT*0.5;
+var clickedX = undefined;
+var clickedY = undefined;
 
 function turn(axis, index, dir){
     for (let i = 0; i < cube.length; i++) {
@@ -89,7 +100,7 @@ function applyMove(move){
 }
 
 function setup() {
-    createCanvas(500, 500, WEBGL);
+    createCanvas(WIDTH, HEIGHT, WEBGL);
     var index = 0;
     for(let x = -1; x <= 1; x++){
         for(let y = -1; y <= 1; y++){
@@ -111,7 +122,6 @@ function setup() {
     for (let i = sequence.length-1; i >=0; i--) {
         sequence += flipCase(sequence.charAt(i));
     }
-    console.log(sequence)
 }
 
 function flipCase(c){
@@ -127,22 +137,41 @@ function draw() {
     clear();
     background('#333');
     scale(50);
-
     if(started){
-        if(frameCount % 5 == 0){
+        if(frameCount % 1 == 0){
             if (counter < sequence.length) {
                 var move = sequence.charAt(counter);
                 applyMove(move);
                 counter++;
             }
+            if(counter == sequence.length){
+                started = false;
+                counter = 0;
+            }
         }
     }
     
-    rotX = map(mouseY, height, 0, -3.2, 3.2);
-    rotY = map(mouseX, width, 0, 3.2, -3.2);
+    if (rot){
+        let dX = mouseX - clickedX;
+        let dY = mouseY - clickedY;
+        rotX = map(actualY+dY, height, 0, -3, 3);
+        rotY = map(actualX+dX, width, 0, 3, -3);
+    }
     rotateX(rotX);
     rotateY(rotY);
+
     for (let i = 0; i < cube.length; i++) {
         cube[i].show();
     }
+}
+
+function mousePressed(){
+    clickedX = mouseX;
+    clickedY = mouseY;
+    rot = true;
+}
+function mouseReleased() {
+    actualX = actualX + mouseX - clickedX;
+    actualY = actualY + mouseY - clickedY;
+    rot = false;
 }
