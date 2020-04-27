@@ -1,20 +1,31 @@
 class Cubie {
     matrix = undefined;
+
     x = undefined;
     y = undefined;
     z = undefined;
+
+    xOrig = undefined;
+    yOrig = undefined;
+    zOrig = undefined;
+
     colors = undefined;
     faces = undefined;
 
     constructor(m, x, y, z){
         this.matrix = m;
+
         this.x = x;
         this.y = y;
         this.z = z;
 
+        this.xOrig = x;
+        this.yOrig = y;
+        this.zOrig = z;
+
         this.colors = {
             upp: '#009b00', dwn: '#0046ad',
-            lft: '#e02000', rgt: '#d55000',
+            lft: '#b51020', rgt: '#d56000',
             frt: '#ffffff', bck: '#fff000'
         };
 
@@ -49,6 +60,14 @@ class Cubie {
         for (let i = 0; i < this.faces.length; i++) {
             this.faces[i].turn('z', dir*HALF_PI);
         }
+    }
+
+    isCorr(){
+        if( this.x == this.xOrig && 
+            this.y == this.yOrig &&
+            this.z == this.zOrig ) { return true; }
+
+        return false;
     }
 
     update(x, y, z){

@@ -1,15 +1,17 @@
-const WIDTH = 500;
-const HEIGHT = 500;
-
-var rot = false;
-var rotX = 0;
-var rotY = 0;
-var actualX = WIDTH * 0.5;
-var actualY = HEIGHT * 0.5;
-var clickedX = undefined;
-var clickedY = undefined;
-
 function setup() {
+    WIDTH = windowWidth * 0.95;
+    HEIGHT = windowHeight * 0.95;
+
+    actualX = WIDTH * 0.5;
+    actualY = HEIGHT * 0.5;
+
+    rot = false;
+    rotX = 0;
+    rotY = 0;
+
+    clickedX = undefined;
+    clickedY = undefined;
+
     createCanvas(WIDTH, HEIGHT, WEBGL);
     cube = new Cube();
 }
@@ -17,7 +19,7 @@ function setup() {
 function draw() {
     clear();
     background('#333');
-    scale(50);
+    scale(60);
     
     if (rot){
         let dX = mouseX - clickedX;
@@ -43,5 +45,9 @@ function mouseReleased() {
 }
 
 function keyPressed() {
-    cube.queue.push(key);
+    if(key == 's'){
+        cube.shuffle();
+    } else if(cube.speed == 1){
+        cube.addMove(key);
+    }
 }

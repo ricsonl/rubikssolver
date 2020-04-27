@@ -8,9 +8,11 @@ class Cube{
     dirAnim = undefined;
 
     queue = undefined;
+    speed = undefined;
 
     constructor(){
-        this.allMoves = ["f", "b", "u", "d", "l", "r"];
+        this.allMoves = ["f", "b", "u", "d", "l", "r",
+                         "F", "B", "U", "D", "L", "R"];
 
         this.cubies = [];
         var index = 0;
@@ -30,16 +32,22 @@ class Cube{
         this.dirAnim = undefined;
 
         this.queue = [];
+        this.speed = 1;
+    }
+
+    addMove(mov){
+        if(this.allMoves.includes(mov)){
+            this.queue.push(mov);
+        }
     }
 
     shuffle() {
-        for (let i = 0; i < 200; i++) {
-            let r = floor(random(this.allMoves.length));
-            if (random(1) < 0.5) {
-                this.queue.push(allMoves[r]);
-            } else {
-                this.queue.push(allMoves[r].toUpperCase());
+        if(this.queue.length == 0){
+            for (let i = 0; i < 110; i++) {
+                let r = floor(random(this.allMoves.length));
+                this.addMove(this.allMoves[r]);
             }
+            this.speed = 7;
         }
     }
 
@@ -70,7 +78,7 @@ class Cube{
     }
 
     animate(axis, index, dir){
-        this.angleAnim += dir * 0.04;
+        this.angleAnim += dir * this.speed * 0.08;
 
         if (abs(this.angleAnim) > HALF_PI) {
 
@@ -165,6 +173,8 @@ class Cube{
             this.animate(this.axisAnim, this.indexAnim, this.dirAnim);
         } else if(this.queue.length > 0){
             this.applyMove(this.queue.shift());
+        } else {
+            this.speed = 1;
         }
 
         for (let i = 0; i < this.cubies.length; i++) {
@@ -185,5 +195,13 @@ class Cube{
             this.cubies[i].show();
             pop();
         }
+    }
+
+    isSolved(){
+        for(let i = 0; i<this.cubies.length; i++){
+            if(!this.cubies[i].isCorr())
+                return false;
+        }
+        return true;
     }
 }
